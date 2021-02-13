@@ -65,3 +65,4 @@ For CodeLou Full-stack Javascript Class 2021
 - [Reserved words in mysql](https://dev.mysql.com/doc/refman/8.0/en/keywords.html)
 - [Best Practices for api design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
 - [Git commit emojis](https://gist.github.com/parmentf/035de27d6ed1dce0b36a)
+- [Node Logger](https://www.twilio.com/blog/guide-node-js-logging)

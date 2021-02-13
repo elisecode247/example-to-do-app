@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const users = require('./routes/users.js');
 const lists = require('./routes/lists.js');
 const listItems = require('./routes/listItems.js');
+/** Logging */
+const expressPino = require('express-pino-logger');
+const logger = require('pino')({ level: process.env.LOG_LEVEL || 'info' });
+const expressLogger = expressPino({ logger });
 
-
+app.use(expressLogger);
 app.use(express.json()); // for parsing application/json
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use('/api/v1/users/', users); // use the user.js file for all routes that start with '/api/users/'
@@ -23,5 +27,5 @@ app.use(function(_req, res) {
 });
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    logger.info(`Example app listening at http://localhost:${port}`);
 });

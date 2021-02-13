@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lint": "eslint .; exit 0",
-    "serve": "nodemon ./index.js localhost 3000",
+    "serve": "NODE_ENV=development LOG_LEVEL=debug DEBUG=* nodemon ./index.js localhost 3000 | ./node_modules/.bin/pino-pretty",
     "test": "mocha ./tests/**/*.test.js",
     "test-watch": "mocha -w ./tests/**/*.test.js"
   },
@@ -32,10 +32,13 @@
   "devDependencies": {
     "eslint": "^7.19.0",
     "mocha": "^8.2.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "pino-pretty": "^4.5.0"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "express-validator": "^6.9.2"
+    "express-pino-logger": "^6.0.0",
+    "express-validator": "^6.9.2",
+    "pino": "^6.11.1"
   }
 }
