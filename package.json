@@ -2,15 +2,19 @@
   "name": "example-to-do-app",
   "version": "1.0.0",
   "description": "basic express server",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scriptsComments": {
     "lint": "silence npm errors but scripts will continue on lint failure"
   },
   "scripts": {
     "lint": "eslint .; exit 0",
-    "serve": "NODE_ENV=development LOG_LEVEL=debug DEBUG=* nodemon ./index.js localhost 3000 | ./node_modules/.bin/pino-pretty",
-    "test": "mocha ./tests/**/*.test.js",
-    "test-watch": "mocha -w ./tests/**/*.test.js"
+    "serve": "NODE_ENV=development LOG_LEVEL=debug DEBUG=* nodemon ./server/index.js localhost 3000 | ./node_modules/.bin/pino-pretty",
+    "serve-sandbox": "NODE_ENV=sandbox LOG_LEVEL=error nodemon ./server/index.js localhost 3000 | ./node_modules/.bin/pino-pretty",
+    "test": "NODE_ENV=development mocha ./**/_tests_/*.test.js; exit 0",
+    "test-sandbox": "NODE_ENV=sandbox mocha ./**/_tests_/*.test.js; exit 0",
+    "test-watch": "NODE_ENV=development mocha -w ./**/_tests_/*.test.js; exit 0",
+    "test-watch-sandbox": "NODE_ENV=sandbox mocha -w ./**/_tests_/*.test.js; exit 0",
+    "test-file": "NODE_ENV=development mocha --"
   },
   "engines": {
     "node": "15.8.0"
@@ -30,15 +34,21 @@
   },
   "homepage": "https://github.com/elisecode247/example-to-do-app#readme",
   "devDependencies": {
+    "chai": "^4.3.0",
     "eslint": "^7.19.0",
     "mocha": "^8.2.1",
     "nodemon": "^2.0.7",
-    "pino-pretty": "^4.5.0"
+    "pino-pretty": "^4.5.0",
+    "supertest": "^6.1.3"
   },
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
     "express-validator": "^6.9.2",
-    "pino": "^6.11.1"
+    "lodash": "^4.17.20",
+    "pino": "^6.11.1",
+    "sequelize": "^6.5.0",
+    "sqlite3": "^5.0.1"
   }
 }

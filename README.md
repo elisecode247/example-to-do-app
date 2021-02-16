@@ -11,40 +11,50 @@ For CodeLou Full-stack Javascript Class 2021
 
 ### Planning
 1. Initialize Project
+   - README initial set up for planning
+   - Editor Linting (EsLint)
+   - Test Runner (mocha)
+   - Babel
+   - Logger (hindsight - pending)
+   - Nodemon Dev tool
+   - Express server
+   - .env file (Environment Variables)
+   - package.json
 2. Set up Routes with Unit Tests and Debugging With Postman
-3. Set up PassportJs Authorization
-4. Set up MySql and Sequelize
-5. Set up Documentation
-6. Deploy On Heroku
+3. Set up Sqlite and Sequelize and Unit Test
+4. Hash Password
+5. Set up PassportJs Authorization
+6. Refactoring/Improve Code Quality
+7. Set up API Documentation
+8. Deploy On Heroku
 
 ### Database Design
 **user**
-- id
-- email
-- password_salt
-- password_hashed (hashed with salt - MD5 or SHA1)
-- created_at
+- id (auto-generated with sqlite)
+- uuid
+- username
+- password (hashed with salt - MD5 or SHA1)
+- createdAt (auto-generated with sqlite)
+- updatedAt (auto-generated with sqlite)
 
-**list**
-- id
-- user_id (foreign key)
-- title
-- description_text
-
-**list_item**
-- id
-- list_id
+**task**
+- id (auto-generated with sqlite)
+- uuid
+- userId (foreign key)
 - content
-- is_complete
+- isComplete
+- createdAt (auto-generated with sqlite)
+- updatedAt (auto-generated with sqlite)
 
 ### Possible Next Steps (Optional)
 - Build Front End
+- Encrypt content for user privacy
 - Allow unauthenticated users to create temporary to-do lists
 
 ## Server Technology, Libraries, and Tools
 - ExpressJs
 - Sequelize
-- MySql
+- Sqlite
 - Passport
 - MochaJs
 
@@ -52,17 +62,27 @@ For CodeLou Full-stack Javascript Class 2021
 - [Pending]
 
 ## How To Run App Locally
-[Pending]
+1. Install the correct version of node listed in package.json (Use nvm to manage switching node versions)
+2. `$ npm ci`
+3. `$ npm run serve`
 
 ## How to Run Unit Tests
-[Pending]
+1. `$ npm run serve-sandbox`
+2. In another terminal `$ npm run test-sandbox`
 
+## Note To Self
+- all api errors will return json and all url errors will return error pages
 ## References
 - [Silence npm errors when running eslint](https://github.com/eslint/eslint/issues/7933)
 - [Fields in a user table](https://dba.stackexchange.com/questions/3537/what-are-some-common-and-useful-fields-for-a-users-table-in-a-database)
 - [Sql Naming conventions](https://www.sqlshack.com/learn-sql-naming-conventions/)
 - [List of common passwords](https://en.wikipedia.org/wiki/List_of_the_most_common_passwords)
-- [Reserved words in mysql](https://dev.mysql.com/doc/refman/8.0/en/keywords.html)
+- [Reserved words in sqlite](http://www3.sqlite.org/lang_keywords.html)
 - [Best Practices for api design](https://stackoverflow.blog/2020/03/02/best-practices-for-rest-api-design/)
 - [Git commit emojis](https://gist.github.com/parmentf/035de27d6ed1dce0b36a)
 - [Node Logger](https://www.twilio.com/blog/guide-node-js-logging)
+- [Errors in Node](https://www.joyent.com/node-js/production/design/errors)
+- [Project Structure](https://softwareontheroad.com/ideal-nodejs-project-structure/)
+- [Integration Tests](https://dev-tester.com/dead-simple-api-tests-with-supertest-mocha-and-chai/)
+- [How To Choose an npm library](https://dev.to/adrianbdesigns/checklist-for-choosing-an-optimal-npm-package-4dpm)
+- [.env for Heroku](https://stackoverflow.com/questions/42109813/node-js-environment-variables-and-heroku-deployment)

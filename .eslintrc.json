@@ -1,3 +1,4 @@
+/* spell-checker: disable */
 {
     "env": {
         "node": true,
@@ -11,9 +12,54 @@
         "sourceType": "module"
     },
     "rules": {
+        "array-bracket-spacing": ["error", "never"],
+        "arrow-parens": ["error", "as-needed"],
+        "brace-style": ["error", "1tbs", { "allowSingleLine": true }],
+        "comma-spacing": ["error", { "before": false, "after": true }],
+        "computed-property-spacing": ["error", "never"],
+        "eqeqeq": ["error", "always"],
+        "implicit-arrow-linebreak": ["error", "beside"],
+        "key-spacing": ["error", {
+            "beforeColon": false,
+            "afterColon": true
+        }],
+        "keyword-spacing": ["error", {
+            "before": true,
+            "after": true,
+            "overrides": {
+                "function": {
+                    "after": false
+                }
+            }
+        }],
+        "no-multiple-empty-lines": ["error", { "max": 1 }],
+        "no-var": "error",
+        "no-unused-vars": [
+            "error",
+            {
+                "vars": "local",
+                "args": "after-used",
+                "ignoreRestSiblings": true
+            }
+        ],
+        "space-before-blocks": ["error", "always"],
+        "space-before-function-paren": ["error", {
+            "anonymous": "never",
+            "named": "never",
+            "asyncArrow": "always"
+        }],
+        "space-in-parens": ["error", "never"],
+        "space-infix-ops": "error",
+        "space-unary-ops": ["error", {
+            "words": true,
+            "nonwords": false
+        }],
         "indent": [
             "error",
-            4
+            4,
+            {
+                "SwitchCase": 1
+            }
         ],
         "linebreak-style": [
             "error",
@@ -21,11 +67,23 @@
         ],
         "quotes": [
             "error",
-            "single"
+            "single",
+            {
+                "allowTemplateLiterals": true
+            }
         ],
         "semi": [
             "error",
             "always"
+        ],
+        "no-console": [
+            "warn",
+            {
+                "allow": [
+                    "warn",
+                    "error"
+                ]
+            }
         ]
     }
 }

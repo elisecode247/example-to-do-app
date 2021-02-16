@@ -1,4 +1,4 @@
-const isCommonPassword = password => {
+const isUncommonPassword = password => {
     const commonPasswords = [
         '00000',
         '000000',
@@ -32,5 +32,5 @@ const isCommonPassword = password => {
 };
 
 module.exports = {
-    isCommonPassword
+    isUncommonPassword
 };
