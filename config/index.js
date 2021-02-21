@@ -1,4 +1,4 @@
-const configPath = `${__dirname}/${process.env.NODE_ENV}.env`;
+const configPath = `${__dirname}/.env.${process.env.NODE_ENV}`;
 const config = require('dotenv').config({path: configPath });
 const { each } = require('lodash');
 

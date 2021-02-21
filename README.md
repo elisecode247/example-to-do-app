@@ -22,8 +22,8 @@ For CodeLou Full-stack Javascript Class 2021
    - package.json
 2. Set up Routes with Unit Tests and Debugging With Postman
 3. Set up Sqlite and Sequelize and Unit Test
-4. Hash Password
-5. Set up PassportJs Authorization
+4. Set up GitHub oAuth authentication
+5. Set up route authorization
 6. Refactoring/Improve Code Quality
 7. Set up API Documentation
 8. Deploy On Heroku
@@ -50,6 +50,10 @@ For CodeLou Full-stack Javascript Class 2021
 - Build Front End
 - Encrypt content for user privacy
 - Allow unauthenticated users to create temporary to-do lists
+- Static code analysis (Sonarqube)
+- Sqlite associations for task and user
+- Access and refresh tokens for sessions
+- Redirect to path before authentication
 
 ## Server Technology, Libraries, and Tools
 - ExpressJs
