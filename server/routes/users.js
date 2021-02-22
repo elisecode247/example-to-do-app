@@ -3,7 +3,7 @@ const { body, validationResult } = require('express-validator');
 const asyncHandler = require('../helpers/asyncHandler');
 const { isUncommonPassword } = require('../helpers/validators');
 const { User, Task } = require('../database').models;
-const authorizeUser = require('../authentication').ensureAuthorizedUser;
+const authorizeUser = require('../authentication').ensureAuthenticated;
 
 // Tasks need userUuid
 router.use('/:userUuid/tasks', require('./tasks.js'));

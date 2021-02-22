@@ -49,24 +49,9 @@ const authentication = {
         app.use(passport.initialize());
         app.use(passport.session());
     },
-    _ensureAuthenticated: (req, res, next) => {
+    ensureAuthenticated: (req, res, next) => {
         if (req.isAuthenticated()) { return next(); }
         res.redirect('/login');
-    },
-    ensureAuthorizedUser: (req, res, next) => {
-        const sessionId = req?.session?.passport?.user?.uuid;
-        const paramId = req?.params?.userUuid;
-        if (!sessionId || !paramId || sessionId !== paramId) {
-            res.status(401).json({
-                success: false,
-                error: {
-                    status: 401,
-                    message: 'This resource is forbidden'
-                }
-            });
-            return;
-        }
-        return next();
     }
 };
 

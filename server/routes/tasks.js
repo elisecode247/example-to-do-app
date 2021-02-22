@@ -4,7 +4,7 @@ const asyncHandler = require('../helpers/asyncHandler');
 const { models } = require('../database');
 const User = models.User;
 const Task = models.Task;
-const authorizeUser = require('../authentication').ensureAuthorizedUser;
+const authorizeUser = require('../authentication').ensureAuthenticated;
 
 // get all tasks for a user
 router.get('/', authorizeUser, asyncHandler(async (req, res) => {
