@@ -10,7 +10,7 @@ const logger = require('pino')({ level: env.LOG_LEVEL || 'info' });
 const expressLogger = expressPino({ logger });
 
 database.initialize({ env, logger });
-authentication.initialize({ app });
+authentication.initialize({ app, database });
 routing.initialize({app, express, expressLogger});
 
 app.listen(port, () => {

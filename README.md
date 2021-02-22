@@ -34,6 +34,7 @@ For CodeLou Full-stack Javascript Class 2021
 - uuid
 - username
 - password (hashed with salt - MD5 or SHA1)
+- token
 - createdAt (auto-generated with sqlite)
 - updatedAt (auto-generated with sqlite)
 
@@ -66,7 +67,7 @@ For CodeLou Full-stack Javascript Class 2021
 - [Pending]
 
 ## How To Run App Locally
-1. Install the correct version of node listed in package.json (Use nvm to manage switching node versions)
+1. Install the correct version of node listed in package.json (Use nvm to manage switching node versions e.g. `nvm use node` for latest version)
 2. `$ npm ci`
 3. `$ npm run serve`
 

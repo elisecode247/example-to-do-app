@@ -4,9 +4,10 @@ const asyncHandler = require('../helpers/asyncHandler');
 const { models } = require('../database');
 const User = models.User;
 const Task = models.Task;
+const authorizeUser = require('../authentication').ensureAuthorizedUser;
 
 // get all tasks for a user
-router.get('/', asyncHandler(async (req, res) => {
+router.get('/', authorizeUser, asyncHandler(async (req, res) => {
     const user = await User.findOne({where: { uuid: req.params.userUuid }});
     if (!user) {
         res.json({success: false, error: { status: 404, message: 'user not found' }});
@@ -19,7 +20,7 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // add new task for a user
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/', authorizeUser, asyncHandler(async (req, res) => {
     const user = await User.findOne({where: { uuid: req.params.userUuid }});
     if (!user) {
         res.status(404).json({success: false, error: { status: 404, message: 'user not found' }});
@@ -43,7 +44,7 @@ router.post('/', asyncHandler(async (req, res) => {
 }));
 
 // update task for a user
-router.put('/:taskUuid', asyncHandler(async (req, res) => {
+router.put('/:taskUuid', authorizeUser, asyncHandler(async (req, res) => {
     const task = await Task.findOne({where: { uuid: req.params.taskUuid }});
     if (!task) {
         res.json({success: false, error: { status: 400, message: 'task not found' }});
@@ -63,7 +64,7 @@ router.put('/:taskUuid', asyncHandler(async (req, res) => {
 }));
 
 // delete task for a user
-router.delete('/:taskUuid', asyncHandler(async (req, res) => {
+router.delete('/:taskUuid', authorizeUser, asyncHandler(async (req, res) => {
     const task = await Task.findOne({where: { uuid: req.params.taskUuid }});
     if (!task) {
         res.json({success: false, error: { status: 400, message: 'task not found' }});

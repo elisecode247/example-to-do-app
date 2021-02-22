@@ -3,18 +3,13 @@ const { body, validationResult } = require('express-validator');
 const asyncHandler = require('../helpers/asyncHandler');
 const { isUncommonPassword } = require('../helpers/validators');
 const { User, Task } = require('../database').models;
+const authorizeUser = require('../authentication').ensureAuthorizedUser;
 
 // Tasks need userUuid
 router.use('/:userUuid/tasks', require('./tasks.js'));
 
-// get data for all users
-router.get('/', asyncHandler(async function(_req, res) {
-    const users = await User.findAll({ order: [['createdAt', 'DESC']] });
-    res.json({ success: true, data: { users }});
-}));
-
 // get data for a specific user
-router.get('/:userUuid', asyncHandler(async (req, res) => {
+router.get('/:userUuid', authorizeUser, asyncHandler(async (req, res) => {
     const user = await User.findOne({where: { uuid: req.params.userUuid }});
     if (!user) {
         res.status(404).json({success: false, error: { status: 404, message: 'user not found' }});
@@ -25,6 +20,7 @@ router.get('/:userUuid', asyncHandler(async (req, res) => {
 
 // add new user
 router.post('/',
+    authorizeUser,
     body('username').isEmail(),
     body('password').isLength({ min: 5 }).custom(isUncommonPassword),
     asyncHandler(async (req, res) => {
@@ -53,6 +49,7 @@ router.post('/',
 
 // update user
 router.put('/:userUuid',
+    authorizeUser,
     body('password').isLength({ min: 5 }).custom(isUncommonPassword),
     asyncHandler(async (req, res) => {
         if (req.body.username && !req.body.password) {
@@ -91,7 +88,7 @@ router.put('/:userUuid',
 );
 
 // delete user and user's tasks and redirect to homepage
-router.delete('/:userUuid', asyncHandler(async (req, res) => {
+router.delete('/:userUuid', authorizeUser, asyncHandler(async (req, res) => {
     const user = await User.findOne({where: { uuid: req.params.userUuid }});
     if (!user) {
         res.json({success: false, error: { status: 400, message: 'user not found' }});

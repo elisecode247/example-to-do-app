@@ -17,6 +17,9 @@ module.exports = sequelize => {
             type: Sequelize.STRING,
             allowNull: false
         },
+        token: {
+            type: Sequelize.STRING,
+        }
     }, { sequelize });
 
     return User;
