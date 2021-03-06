@@ -4,6 +4,7 @@ const asyncHandler = require('../helpers/asyncHandler');
 const { isUncommonPassword } = require('../helpers/validators');
 const { User, Task } = require('../database').models;
 const authorizeUser = require('../authentication').ensureAuthenticated;
+const { v4: uuidv4 } = require('uuid');
 
 // Tasks need userUuid
 router.use('/:userUuid/tasks', require('./tasks.js'));
@@ -36,13 +37,16 @@ router.post('/',
             return;
         }
 
-        const newUser = await User.create({
-            uuid: req.body.uuid,
-            username: req.body.username,
-            password: req.body.password
+        const newUser = await User.findOrCreate({
+            where: { username: req.body.uuid },
+            defaults: {
+                uuid: req.body.uuid || uuidv4(),
+                username: req.body.username,
+                password: req.body.password,
+                token: null
+            }
         });
-
-        res.json({success: true, data: { user: { uuid: newUser.uuid } } });
+        res.json({success: true, data: { user: { uuid: newUser[0].dataValues.uuid } } });
         return;
     })
 );

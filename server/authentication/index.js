@@ -5,11 +5,13 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { User } = require('../database').models;
 const env = require('../../config');
 const { v4: uuidv4 } = require('uuid');
+const { SANDBOX } = require('../../config/constants');
 
 const GITHUB_CLIENT_ID = env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = env.GITHUB_CLIENT_SECRET;
 const HOST = env.HOST;
 const PORT = `:${env.PORT}`;
+const NODE_ENV = env.NODE_ENV;
 
 const authentication = {
     initialize: ({ app, database }) => {
@@ -50,7 +52,8 @@ const authentication = {
         app.use(passport.session());
     },
     ensureAuthenticated: (req, res, next) => {
-        if (req.isAuthenticated()) { return next(); }
+        if (NODE_ENV === SANDBOX) return next();
+        if (req.isAuthenticated()) return next();
         res.redirect('/login');
     }
 };

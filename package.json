@@ -9,12 +9,9 @@
   "scripts": {
     "lint": "eslint .; exit 0",
     "serve": "NODE_ENV=development LOG_LEVEL=debug DEBUG=* nodemon ./server/index.js localhost 3000 | ./node_modules/.bin/pino-pretty",
-    "serve-sandbox": "NODE_ENV=sandbox LOG_LEVEL=error nodemon ./server/index.js localhost 3000 | ./node_modules/.bin/pino-pretty",
-    "test": "NODE_ENV=development mocha ./**/_tests_/*.test.js; exit 0",
-    "test-sandbox": "NODE_ENV=sandbox mocha ./**/_tests_/*.test.js; exit 0",
-    "test-watch": "NODE_ENV=development mocha -w ./**/_tests_/*.test.js; exit 0",
-    "test-watch-sandbox": "NODE_ENV=sandbox mocha -w ./**/_tests_/*.test.js; exit 0",
-    "test-file": "NODE_ENV=development mocha --"
+    "test": "NODE_ENV=sandbox mocha ./**/_tests_/*.test.js; exit 0",
+    "test-watch": "NODE_ENV=sandbox mocha -w ./**/_tests_/*.test.js; exit 0",
+    "test-file": "NODE_ENV=sandbox mocha --"
   },
   "engines": {
     "node": "15.8.0"

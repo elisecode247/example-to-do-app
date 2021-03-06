@@ -53,9 +53,11 @@ For CodeLou Full-stack Javascript Class 2021
 - Allow unauthenticated users to create temporary to-do lists
 - Static code analysis (Sonarqube)
 - Sqlite associations for task and user
-- Access and refresh tokens for sessions
-- Redirect to path before authentication
-
+- use jwt tokens
+- Sorting
+- Different lists
+- Integration test authentication
+- [Domain-Driven Design](https://medium.com/steve-cruz/domain-driven-design-ddd-file-structure-ade7fb26553d)
 ## Server Technology, Libraries, and Tools
 - ExpressJs
 - Sequelize
@@ -77,6 +79,7 @@ For CodeLou Full-stack Javascript Class 2021
 
 ## Note To Self
 - all api errors will return json and all url errors will return error pages
+- Using oAuth for authentication is a hack. It was originally designed only for 3rd party api authorization. It worked so well for authentication, it became the norm. There is a new protocol for using oAuth called openId, but github doesn't seem to use it yet.
 ## References
 - [Silence npm errors when running eslint](https://github.com/eslint/eslint/issues/7933)
 - [Fields in a user table](https://dba.stackexchange.com/questions/3537/what-are-some-common-and-useful-fields-for-a-users-table-in-a-database)
@@ -91,3 +94,5 @@ For CodeLou Full-stack Javascript Class 2021
 - [Integration Tests](https://dev-tester.com/dead-simple-api-tests-with-supertest-mocha-and-chai/)
 - [How To Choose an npm library](https://dev.to/adrianbdesigns/checklist-for-choosing-an-optimal-npm-package-4dpm)
 - [.env for Heroku](https://stackoverflow.com/questions/42109813/node-js-environment-variables-and-heroku-deployment)
+- [OAuth 2.0 and OpenID Connect in Plain English!](https://youtu.be/0VWkQMr7r_c)
+- [Order of execution of Mocha hooks](https://stackoverflow.com/questions/32660241/mocha-beforeeach-vs-before-execution/32682451) Before and After must be in a describe block
