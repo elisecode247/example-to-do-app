@@ -79,6 +79,15 @@ For CodeLou Full-stack Javascript Class 2021
 2. `$ npm ci`
 3. `$ npm run serve`
 
+## How To Test Api Using Postman
+1. Follow the [Github directions](https://docs.github.com/en/developers/apps/building-github-apps) and get a clientId and clientSecret
+2. Set up .env files for environments in config/constants
+3. `$ npm ci`
+4. `$ npm run serve`
+5. Use the latest version of Postman
+6. Import the Postman collection json file in the project folder into Postman
+7. Run requests in order
+
 ## How to Run Unit Tests
 `$ npm run test`
 

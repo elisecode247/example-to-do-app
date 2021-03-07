@@ -73,6 +73,7 @@ typings/
 .env.development
 .env.production
 .env.sandbox
+.env.postman
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache

@@ -9,6 +9,7 @@ const GITHUB_CLIENT_ID = env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = env.GITHUB_CLIENT_SECRET;
 const HOST = env.HOST;
 const PORT = `:${env.PORT}`;
+const { POSTMAN } = require('../../config/constants');
 
 const authentication = {
     initialize: ({ app, database }) => {
@@ -39,7 +40,7 @@ const authentication = {
                     uuid: uuidv4(),
                     username: profile.username,
                     password: '',
-                    token: ''
+                    token: accessToken
                 }
             });
             return done(null, user[0].dataValues);
@@ -49,10 +50,15 @@ const authentication = {
         app.use(passport.session());
     },
     ensureAuthenticated: (req, res, next) => {
+        if (process.env.NODE_ENV === POSTMAN) {
+            req.user = {id: 1};
+            return next();
+        }
         if (req.isAuthenticated()) return next();
         res.redirect('/login');
     },
     ensureAuthorized: (req, res, next) => {
+        if (process.env.NODE_ENV === POSTMAN) return next();
         if (!req.params.userUuid) return next();
         if (req.params.userUuid === req.user.uuid) return next();
 
