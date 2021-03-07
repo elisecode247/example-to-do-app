@@ -1,11 +1,10 @@
-const server = require('../../../server');
-const request = require('supertest').agent(server);
+/* eslint-disable no-console */
 const expect = require('chai').expect;
 
 const user = {
-    uuid: '2b9d6bcdbbfd4b2d9b5dab8dfbbd4bee',
-    username: 'jdoe1@testemail.com',
-    password: 'rawFakePassword1'
+    uuid: '3b9d6bcdbbfd4b2d9b5dab8dfbbd4bef',
+    username: 'jdoetasktest@testemail.com',
+    password: 'rawFakePassword'
 };
 
 const task = {
@@ -13,6 +12,9 @@ const task = {
     userUuid: user.uuid,
     content: 'Go grocery shopping.'
 };
+
+const server = require('../../../server');
+const request = require('supertest').agent(server);
 
 describe('routes/tasks', async () => {
     before(async () => {
@@ -23,10 +25,10 @@ describe('routes/tasks', async () => {
         await request.delete('/v1/users/' + user.uuid);
         server.close();
     });
+
     describe('POST /api/v1/users/:userUuid/tasks', async () => {
         it('creates a new task for a specified user', async () => {
-            await request.post(`/api/v1/users`)
-                .send({ uuid: user.uuid, username: user.username, password: user.password });
+
             const response = await request.post(`/api/v1/users/${user.uuid}/tasks`).send({
                 uuid: task.uuid,
                 content: task.content

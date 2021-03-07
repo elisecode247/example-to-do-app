@@ -3,10 +3,12 @@ const { body, validationResult } = require('express-validator');
 const asyncHandler = require('../helpers/asyncHandler');
 const { isUncommonPassword } = require('../helpers/validators');
 const { User, Task } = require('../database').models;
-const authorizeUser = require('../authentication').ensureAuthenticated;
+const authenticateUser = require('../authentication').ensureAuthenticated;
+const authorizeUser = require('../authentication').ensureAuthorized;
 const { v4: uuidv4 } = require('uuid');
 
 // Tasks need userUuid
+router.use('/:userUuid', authenticateUser);
 router.use('/:userUuid/tasks', require('./tasks.js'));
 
 // get data for a specific user
@@ -21,7 +23,6 @@ router.get('/:userUuid', authorizeUser, asyncHandler(async (req, res) => {
 
 // add new user
 router.post('/',
-    authorizeUser,
     body('username').isEmail(),
     body('password').isLength({ min: 5 }).custom(isUncommonPassword),
     asyncHandler(async (req, res) => {

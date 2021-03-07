@@ -5,11 +5,15 @@ const sequelize = new Sequelize({
     storage: config.DB_PATH,
     logging: false
 });
+const logger = require('pino')({ level: config.LOG_LEVEL || 'info' });
 
 const db = {
     sequelize,
     Sequelize,
     models: {},
+    close: () => {
+        sequelize.connectionManager.close().then(() => logger.info('database shut down gracefully'));
+    },
     initialize: ({ env, logger }) => {
         sequelize.sync({ force: env.DB_FORCE_SYNC }).then(() => {
             logger.info('Connection to the database successful!');

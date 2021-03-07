@@ -15,8 +15,19 @@ const routing = {
                 return;
             }
             res.send(
-                `<h1>Example TODO list</h1><p>Hello ${req.user.username}!</p>
-                <p><a href="/logout">Logout</a></p>`
+                `
+                <h1>Example TODO list</h1>
+                <p>Hello ${req.user.username}!</p>
+                <p>Hello ${req.user.uuid}!</p>
+                <p><a href="/logout">Logout</a></p>
+                <p>
+                    <form action="/api/v1/users/${req.user.uuid}/tasks/" method="post">
+                        <input name="content" value="buy groceries" />
+                        <input name"uuid" value="2342342342234324" />
+                        <button name="uuid" type="submit" value="234233-423422-34324">Submit</button>
+                    </form>
+                </p>
+                `
             );
         });
 
@@ -33,20 +44,22 @@ const routing = {
             res.redirect('/');
         });
 
-        // Handle 404 - Keep this as a last route
+        // Handle 404 - Keep this as a last route for unhandled bad client requests
         app.use(function(_req, res) {
             res.status(404);
-            res.json({
-                success: false,
-                error: {
-                    status: 404,
-                    message: 'This resource does not exist'
-                }
-            });
+            res.send(`<h1>This page does not exist.</h1>`);
         });
 
         // error handler middleware
-        app.use((error, _req, res, next) => {
+        app.use((error, req, res, next) => {
+            // Client errors
+            // Handle Redirect to 403 - Unauthorized user
+
+            if (error.status === 403) {
+                res.status(403);
+                res.send(`<h1>You're not allowed here!</h1>`);
+                return;
+            }
             console.error(error);
             res.status(error.status || 500).json({
                 success: false,

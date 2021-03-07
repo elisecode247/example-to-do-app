@@ -5,13 +5,10 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const { User } = require('../database').models;
 const env = require('../../config');
 const { v4: uuidv4 } = require('uuid');
-const { SANDBOX } = require('../../config/constants');
-
 const GITHUB_CLIENT_ID = env.GITHUB_CLIENT_ID;
 const GITHUB_CLIENT_SECRET = env.GITHUB_CLIENT_SECRET;
 const HOST = env.HOST;
 const PORT = `:${env.PORT}`;
-const NODE_ENV = env.NODE_ENV;
 
 const authentication = {
     initialize: ({ app, database }) => {
@@ -34,15 +31,15 @@ const authentication = {
         },
         async (accessToken, refreshToken, profile, done) => {
             if (!profile.username) {
-                return done(new Error('Could not find username'), null);
+                return done(new Error('Could not find username line 37'), null);
             }
             const user = await User.findOrCreate({
                 where: { username: profile.username },
                 defaults: {
                     uuid: uuidv4(),
                     username: profile.username,
-                    password: accessToken,
-                    token: accessToken
+                    password: '',
+                    token: ''
                 }
             });
             return done(null, user[0].dataValues);
@@ -52,9 +49,16 @@ const authentication = {
         app.use(passport.session());
     },
     ensureAuthenticated: (req, res, next) => {
-        if (NODE_ENV === SANDBOX) return next();
         if (req.isAuthenticated()) return next();
         res.redirect('/login');
+    },
+    ensureAuthorized: (req, res, next) => {
+        if (!req.params.userUuid) return next();
+        if (req.params.userUuid === req.user.uuid) return next();
+
+        const err = new Error(`Unauthorized user. You're not allowed here!`);
+        err.status = 403;
+        return next(err);
     }
 };
 

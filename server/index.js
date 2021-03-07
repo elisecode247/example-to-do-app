@@ -18,4 +18,9 @@ const server = app.listen(port, () => {
     logger.info(`Example app listening at ${host}:${port}`);
 });
 
+process.on('SIGINT', () => {
+    database.close();
+    server.close();
+});
+
 module.exports = server;

@@ -24,17 +24,17 @@ For CodeLou Full-stack Javascript Class 2021
 3. Set up Sqlite and Sequelize and Unit Test
 4. Set up GitHub oAuth authentication
 5. Set up route authorization
-6. Refactoring/Improve Code Quality
+6. Deploy On Heroku
 7. Set up API Documentation
-8. Deploy On Heroku
+8. Refactoring/Improve Code Quality
 
 ### Database Design
 **user**
 - id (auto-generated with sqlite)
 - uuid
 - username
-- password (hashed with salt - MD5 or SHA1)
-- token
+- password (hashed with salt - MD5 or SHA1) - TODO unused with only oauth authentication
+- token - TODO unused with only oauth authentication
 - createdAt (auto-generated with sqlite)
 - updatedAt (auto-generated with sqlite)
 
@@ -57,13 +57,19 @@ For CodeLou Full-stack Javascript Class 2021
 - Sorting
 - Different lists
 - Integration test authentication
-- [Domain-Driven Design](https://medium.com/steve-cruz/domain-driven-design-ddd-file-structure-ade7fb26553d)
+- Refactor: [Domain-Driven Design](https://medium.com/steve-cruz/domain-driven-design-ddd-file-structure-ade7fb26553d)
+- Refactor: remove unit test setup duplication
+- Refactor: fix user table with unused fields
+- Refactor: use logger instead of console.log
+- Add admin role that can create users
+- Figure out why having a before request prevents database lock
 ## Server Technology, Libraries, and Tools
 - ExpressJs
 - Sequelize
 - Sqlite
 - Passport
 - MochaJs
+- Sinon
 
 ## Client Technology, Libraries, and Tools (Optional)
 - [Pending]
@@ -74,12 +80,13 @@ For CodeLou Full-stack Javascript Class 2021
 3. `$ npm run serve`
 
 ## How to Run Unit Tests
-1. `$ npm run serve-sandbox`
-2. In another terminal `$ npm run test-sandbox`
+`$ npm run test`
 
 ## Note To Self
 - all api errors will return json and all url errors will return error pages
 - Using oAuth for authentication is a hack. It was originally designed only for 3rd party api authorization. It worked so well for authentication, it became the norm. There is a new protocol for using oAuth called openId, but github doesn't seem to use it yet.
+- sqlite database locks if bad code is introduced
+- Authorization and authentication keeps getting mixed up, even in [http error codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 ## References
 - [Silence npm errors when running eslint](https://github.com/eslint/eslint/issues/7933)
 - [Fields in a user table](https://dba.stackexchange.com/questions/3537/what-are-some-common-and-useful-fields-for-a-users-table-in-a-database)
